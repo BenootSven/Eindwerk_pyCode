@@ -2,7 +2,7 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="ssh://pi@sven.local:22/usr/bin/python3.4" name="ssh://pi@sven.local:22/usr/bin/python3.4">
+      <webServer id="ssh://pi@sven.local:22/usr/bin/python3.4" name="PiSven" url="http://sven.local">
         <fileTransfer host="sven.local" port="22" accessType="SFTP">
           <option name="port" value="22" />
         </fileTransfer>

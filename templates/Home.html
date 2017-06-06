@@ -1,0 +1,99 @@
+{% extends "Base.html" %}
+{% block title %}
+    Home
+{% endblock %}
+
+{% block Home %}
+    class="active"
+{% endblock %}
+
+{% block body %}
+    <h1>Welkom op Home!</h1>
+    <div>
+        <table class="knoppen">
+            <tr>
+                <td>
+                    Pomp:
+                </td>
+                <td>
+                    <form action="/set" method="post">
+                        <button type="submit" value="11" name="value_set" class="knop">AAN</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/set" method="post">
+                        <button type="submit" value="10" name="value_set" class="knop">UIT</button>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Ventilator:
+                </td>
+                <td>
+                    <form action="/set" method="post">
+                        <button type="submit" value="21" name="value_set" class="knop">AAN</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/set" method="post">
+                        <button type="submit" value="20" name="value_set" class="knop">UIT</button>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    LED strip:
+                </td>
+                <td>
+                    <form action="/set" method="post">
+                        <button type="submit" value="31" name="value_set" class="knop">AAN</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/set" method="post">
+                        <button type="submit" value="30" name="value_set" class="knop">UIT</button>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Dak:
+                </td>
+                <td>
+                    <form action="/set" method="post">
+                        <button type="submit" value="41" name="value_set" class="knop">OPEN</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/set" method="post">
+                        <button type="submit" value="40" name="value_set" class="knop">TOE</button>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Temperatuur:
+                </td>
+                <td colspan="2">
+                    <form action="/set" method="post">
+                        <button type="submit" value="51" name="value_set" class="knop" style="width: 100%">READ</button>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Vochtigheid:
+                </td>
+                <td colspan="2">
+                    <form action="/set" method="post">
+                        <button type="submit" value="61" name="value_set" class="knop" style="width: 100%">READ</button>
+                    </form>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+
+    {#        <script src="/static/js/project.js"></script>#}
+{% endblock %}

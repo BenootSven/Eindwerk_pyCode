@@ -15,7 +15,7 @@ class Servo:
         return "De ingegeven servo pin is: %s, de ingegeven frequentie is: %s (Range Servo van 0-13)" % (self.__ServoPin, self.__Hz)
 
     def init(self):
-        self.__servo.start(12)
+        self.__servo.start(0)
 
     def servoDakToe(self, delay=0.005, van=6.9, tot=12.0):
         teller1 = van
@@ -23,6 +23,7 @@ class Servo:
             self.__servo.ChangeDutyCycle(teller1)
             teller1 += 0.05
             time.sleep(delay)
+        self.__servo.stop(6.9)
 
     def servoDakOpen(self, delay=0.005, van=12.0, tot=6.9):
         teller2 = van
@@ -30,10 +31,10 @@ class Servo:
             self.__servo.ChangeDutyCycle(teller2)
             teller2 -= 0.05
             time.sleep(delay)
+        self.__servo.stop(6.9)
 
     def stopServo(self):
         self.__servo.ChangeDutyCycle(12)
         time.sleep(0.5)
-        self.__servo.stop(12)
-        GPIO.cleanup()
+
         print("Servo is gestopt")

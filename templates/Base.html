@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        SerreMatic - {% block title %}{% endblock %}
+    </title>
+    <meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=1">
+    <link rel="stylesheet" href="{{ url_for("static",filename="css/CSS.css") }}">
+
+</head>
+<body>
+<nav>
+    <ul>
+        <li><a {% block Home %}{% endblock %}href="{{ url_for("Home") }}">Home</a></li>
+        <li><a {% block Details %}{% endblock %}href="{{ url_for("Details") }}">Details</a></li>
+        <li><a {% block Over %}{% endblock %}href="{{ url_for("Over") }}">Over</a></li>
+    </ul>
+</nav>
+{% block body %}
+{% endblock %}
+</body>
+</html>
