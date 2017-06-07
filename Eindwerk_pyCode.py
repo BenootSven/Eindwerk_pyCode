@@ -1,12 +1,15 @@
-from flask import Flask
-from flask import render_template
-from flask import request
-import RPi.GPIO as GPIO
+from flask import Flask, render_template, request
 from Klassen.I2CLCDklasse import i2cLCD
 from Klassen.MCPklasse import SPI
 from Klassen.ServoEindwerkKlasse import Servo
 from Klassen.OneWireSensorKlasse import OneWireSensor
+from threading import Thread
+from flask_socketio import SocketIO
+from gevent import monkey
+import RPi.GPIO as GPIO
 import time
+
+monkey.patch_all()
 
 GPIO.setmode(GPIO.BCM)
 fan = 16
@@ -29,6 +32,8 @@ onewire1 = OneWireSensor('/sys/bus/w1/devices/28-000008c5ac92/w1_slave')
 onewire2 = OneWireSensor('/sys/bus/w1/devices/28-000008e097d8/w1_slave')
 
 app = Flask(__name__)
+socketio = SocketIO(app)
+thread = None
 
 
 def shutdown_server():
@@ -38,8 +43,18 @@ def shutdown_server():
     func()
 
 
+def background_program():
+    while True:
+        time.sleep(1)
+        print("Background task!")
+
+
 @app.route('/')
 def Home():
+    # global thread
+    # if thread is None:
+    #     thread = Thread(target=background_program)
+    #     thread.start()
     return render_template("Home.html")
 
 
@@ -66,6 +81,10 @@ def Details4():
 @app.route('/over')
 def Over():
     return render_template("Over.html")
+
+@app.route('/test')
+def test():
+    return render_template("test.html")
 
 
 @app.route('/set', methods=['POST'])
@@ -166,4 +185,4 @@ def shutdown():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', use_reloader=False)
+    app.run(debug=True, host='0.0.0.0', use_reloader=False, threaded=True)
