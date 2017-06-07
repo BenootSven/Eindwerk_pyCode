@@ -11,10 +11,11 @@
 </head>
 <body>
 <nav>
-    <ul>
+    <ul class="head">
         <li><a {% block Home %}{% endblock %}href="{{ url_for("Home") }}">Home</a></li>
-        <li><a {% block Details %}{% endblock %}href="{{ url_for("Details") }}">Details</a></li>
+        <li><a {% block  Details %}{% endblock %}href="{{ url_for("Details") }}">Details</a></li>
         <li><a {% block Over %}{% endblock %}href="{{ url_for("Over") }}">Over</a></li>
+        <li style="float: right; border-left: 1px solid #bbb;"><a {% block shutdown %}{% endblock %}href="{{ url_for("shutdown") }}">shutdown</a></li>
     </ul>
 </nav>
 {% block body %}

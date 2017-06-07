@@ -9,7 +9,6 @@ from Klassen.OneWireSensorKlasse import OneWireSensor
 import time
 
 GPIO.setmode(GPIO.BCM)
-GPIO.setwarnings(False)
 fan = 16
 pump = 12
 Gled = 25
@@ -32,6 +31,13 @@ onewire2 = OneWireSensor('/sys/bus/w1/devices/28-000008e097d8/w1_slave')
 app = Flask(__name__)
 
 
+def shutdown_server():
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func is None:
+        raise RuntimeError('Not running with the Werkzeug Server')
+    func()
+
+
 @app.route('/')
 def Home():
     return render_template("Home.html")
@@ -40,6 +46,21 @@ def Home():
 @app.route('/details')
 def Details():
     return render_template("Details.html")
+
+
+@app.route('/details2')
+def Details2():
+    return render_template("Details2.html")
+
+
+@app.route('/details3')
+def Details3():
+    return render_template("Details3.html")
+
+
+@app.route('/details4')
+def Details4():
+    return render_template("Details4.html")
 
 
 @app.route('/over')
@@ -93,18 +114,18 @@ def handle_data():
         GPIO.output(Bled, GPIO.LOW)
 
     if tekst == "41":
+        LCD.lcd_clear()
         servo = Servo(18, 50)
         servo.init()
-        LCD.lcd_clear()
         LCD.lcd_string("Last update:", 0)
         LCD.lcd_string("Dak open", 1)
         servo.servoDakOpen(0.03)
         servo.stopServo()
 
     if tekst == "40":
+        LCD.lcd_clear()
         servo = Servo(18, 50)
         servo.init()
-        LCD.lcd_clear()
         LCD.lcd_string("Last update:", 0)
         LCD.lcd_string("Dak toe", 1)
         servo.servoDakToe(0.03)
@@ -128,8 +149,21 @@ def handle_data():
         LCD.lcd_string("Vocht1 = %0.2f" % vocht1, 0)
         LCD.lcd_string("Vocht2 = %0.2f" % vocht2, 1)
 
-    return render_template("Home.html", vriable=tekst)
+    return render_template("Home.html")
+
+
+@app.route('/shutdown', methods=['GET'])
+def shutdown():
+    shutdown_server()
+    GPIO.output(Rled, GPIO.LOW)
+    GPIO.output(Gled, GPIO.LOW)
+    GPIO.output(Bled, GPIO.LOW)
+    GPIO.output(pump, GPIO.LOW)
+    GPIO.output(fan, GPIO.LOW)
+    LCD.lcd_clear(False)
+    GPIO.cleanup()
+    return render_template("shutdown.html")
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0', use_reloader=False)
