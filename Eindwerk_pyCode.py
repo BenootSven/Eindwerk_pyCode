@@ -5,11 +5,8 @@ from Klassen.ServoEindwerkKlasse import Servo
 from Klassen.OneWireSensorKlasse import OneWireSensor
 from threading import Thread
 from flask_socketio import SocketIO
-from gevent import monkey
 import RPi.GPIO as GPIO
 import time
-
-monkey.patch_all()
 
 GPIO.setmode(GPIO.BCM)
 fan = 16

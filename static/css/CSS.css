@@ -4,7 +4,7 @@ body {
     font-family: 'Open Sans', sans-serif;
     width: 90%;
     margin: auto;
-    background-color: darkseagreen;
+    background-color: rgb(217, 255, 214);
 }
 
 ul {
@@ -57,10 +57,36 @@ table.over {
     width: 100%;
 }
 
-table.over, tr.over, td.over {
-    /*border: 1px solid black;*/
+button.knop:hover {
+    background-color: #4CAF50;
 }
 
-button:hover {
+a {
+    text-decoration: none
+}
+
+button.knopDetails {
+    background-color: lightgreen;
+    border: solid;
+    border-radius: 10px;
+    font-size: 20px;
+    width: 70%;
+    margin: auto;
+    display: block;
+}
+
+table.talbeDetails {
+    width: 100%;
+    border-spacing: 10px;
+}
+
+td.tdDetailsRow {
+    text-align: center;
+    border-radius: 10px;
+    background-color: rgb(184, 229, 181);
+    box-shadow: 5px 5px 5px grey;
+}
+
+button.knopDetails:hover {
     background-color: #4CAF50;
 }

@@ -5,8 +5,18 @@
     <title>
         SerreMatic - {% block title %}{% endblock %}
     </title>
-    <meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="{{ url_for("static",filename="css/CSS.css") }}">
+    <title>Line Chart</title>
+    <script src="/static/js/Chart.bundle.js"></script>
+    <script src="/static/js/utils.js"></script>
+    <style>
+        canvas {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+    </style>
 </head>
 <body>
 <nav>
