@@ -9,87 +9,165 @@
 
 {% block body %}
     <h1>Welkom op Home!</h1>
-        <table class="knoppen">
-            <tr>
-                <td>
-                    Pomp:
-                </td>
-                <td>
-                    <form action="/set" method="post">
-                        <button type="submit" value="11" name="value_set" class="knop">AAN</button>
-                    </form>
-                </td>
-                <td>
-                    <form action="/set" method="post">
-                        <button type="submit" value="10" name="value_set" class="knop">UIT</button>
-                    </form>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Ventilator:
-                </td>
-                <td>
-                    <form action="/set" method="post">
-                        <button type="submit" value="21" name="value_set" class="knop">AAN</button>
-                    </form>
-                </td>
-                <td>
-                    <form action="/set" method="post">
-                        <button type="submit" value="20" name="value_set" class="knop">UIT</button>
-                    </form>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    LED strip:
-                </td>
-                <td>
-                    <form action="/set" method="post">
-                        <button type="submit" value="31" name="value_set" class="knop">AAN</button>
-                    </form>
-                </td>
-                <td>
-                    <form action="/set" method="post">
-                        <button type="submit" value="30" name="value_set" class="knop">UIT</button>
-                    </form>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Dak:
-                </td>
-                <td>
-                    <form action="/set" method="post">
-                        <button type="submit" value="41" name="value_set" class="knop">OPEN</button>
-                    </form>
-                </td>
-                <td>
-                    <form action="/set" method="post">
-                        <button type="submit" value="40" name="value_set" class="knop">TOE</button>
-                    </form>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Temperatuur:
-                </td>
-                <td colspan="2">
-                    <form action="/set" method="post">
-                        <button type="submit" value="51" name="value_set" class="knop" style="width: 100%">READ</button>
-                    </form>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Vochtigheid:
-                </td>
-                <td colspan="2">
-                    <form action="/set" method="post">
-                        <button type="submit" value="61" name="value_set" class="knop" style="width: 100%">READ</button>
-                    </form>
-                </td>
-            </tr>
-        </table>
+    <table style="width: 100%">
+        <tr>
+            <td>
+                <table style="width: 100%; border: 1px solid black; text-align: center">
+                    <tr>
+                        <th>ID</th>
+                        <th>Temp Binnen</th>
+                        <th>Datum/Tijd</th>
+                    </tr>
+                    {% for log in Data %}
+                        <tr>
+                            <td>{{ log[0] }}</td>
+                            <td>{{ log[1] }}</td>
+                            <td>{{ log[3] }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </td>
+            <td>
+                <table style="width: 100%;border: 1px solid black; text-align: center">
+                    <tr>
+                        <th>ID</th>
+                        <th>Temp Buiten</th>
+                        <th>Datum/Tijd</th>
+                    </tr>
+                    {% for log in Data %}
+                        <tr>
+                            <td>{{ log[0] }}</td>
+                            <td>{{ log[2] }}</td>
+                            <td>{{ log[3] }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table style="width: 100%; border: 1px solid black; text-align: center">
+                    <tr>
+                        <th>ID</th>
+                        <th>Vocht zone 1</th>
+                        <th>Datum/Tijd</th>
+                    </tr>
+                    {% for log in Data2 %}
+                        <tr>
+                            <td>{{ log[0] }}</td>
+                            <td>{{ log[1] }}</td>
+                            <td>{{ log[3] }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </td>
+            <td>
+                <table style="width: 100%;border: 1px solid black; text-align: center">
+                    <tr>
+                        <th>ID</th>
+                        <th>Vocht zone 2</th>
+                        <th>Datum/Tijd</th>
+                    </tr>
+                    {% for log in Data2 %}
+                        <tr>
+                            <td>{{ log[0] }}</td>
+                            <td>{{ log[2] }}</td>
+                            <td>{{ log[3] }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </td>
+        </tr>
+
+    </table>
+
+
+    <br>
+    <br>
+    <br>
+
+    <table class="home">
+        <tr class="home">
+            <td class="home">
+                Pomp:
+            </td>
+            <td class="home">
+                <form action="/set" method="post">
+                    <button type="submit" value="11" name="value_set" class="knop">AAN</button>
+                </form>
+            </td>
+            <td class="home">
+                <form action="/set" method="post">
+                    <button type="submit" value="10" name="value_set" class="knop">UIT</button>
+                </form>
+            </td>
+
+        </tr>
+        <tr class="home">
+            <td class="home">
+                Ventilator:
+            </td>
+            <td class="home">
+                <form action="/set" method="post">
+                    <button type="submit" value="21" name="value_set" class="knop">AAN</button>
+                </form>
+            </td>
+            <td class="home">
+                <form action="/set" method="post">
+                    <button type="submit" value="20" name="value_set" class="knop">UIT</button>
+                </form>
+            </td>
+        </tr>
+        <tr class="home">
+            <td class="home">
+                LED strip:
+            </td>
+            <td class="home">
+                <form action="/set" method="post">
+                    <button type="submit" value="31" name="value_set" class="knop">AAN</button>
+                </form>
+            </td>
+            <td class="home">
+                <form action="/set" method="post">
+                    <button type="submit" value="30" name="value_set" class="knop">UIT</button>
+                </form>
+            </td>
+        </tr>
+        <tr class="home">
+            <td class="home">
+                Dak:
+            </td>
+            <td class="home">
+                <form action="/set" method="post">
+                    <button type="submit" value="41" name="value_set" class="knop">OPEN</button>
+                </form>
+            </td>
+            <td class="home">
+                <form action="/set" method="post">
+                    <button type="submit" value="40" name="value_set" class="knop">TOE</button>
+                </form>
+            </td>
+        </tr>
+        <tr class="home">
+            <td class="home">
+                Temperatuur:
+            </td>
+            <td colspan="2" class="home">
+                <form action="/set" method="post">
+                    <button type="submit" value="51" name="value_set" class="knop" style="width: 100%">READ</button>
+                </form>
+            </td>
+        </tr>
+        <tr class="home">
+            <td class="home">
+                Vochtigheid:
+            </td>
+            <td colspan="2" class="home">
+                <form action="/set" method="post">
+                    <button type="submit" value="61" name="value_set" class="knop" style="width: 100%">READ</button>
+                </form>
+            </td>
+        </tr>
+    </table>
 
 {% endblock %}

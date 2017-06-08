@@ -98,3 +98,11 @@ button.knopDetails:hover {
     background-color: rgb(184, 229, 181);
     box-shadow: 5px 5px 5px grey;
 }
+
+table.home{
+    border-collapse: collapse;
+}
+
+table.home, th.home, td.home {
+    border: 1px solid black;
+}
