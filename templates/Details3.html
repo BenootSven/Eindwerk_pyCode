@@ -8,48 +8,42 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Welkom op Details 3</h1>
-    <table>
+    <h1>Dit zijn de details per sensor:</h1>
+    <table class="talbeDetails">
         <tr>
-            <td><h2>Temperatuur sensor 1</h2></td>
-        </tr>
-        <tr>
-            <td>
-                <a href="details">
-                    <button class="knop" style="width: 100%">Klik hier</button>
-                </a>
+            <td class="tdDetailsRow">
+                <h2>Temperatuur sensor 1</h2>
+                <button onclick="window.location.href='details'" class="knopDetails">Klik hier</button>
+            </td>
+
+            <td class="tdDetailsRow">
+                <h2>Temperatuur sensor 2</h2>
+                <button onclick="window.location.href='details2'" class="knopDetails">Klik hier</button>
+            </td>
+
+            <td class="actief">
+                <h2>Vochtigheid sensor 1</h2>
+                <button onclick="window.location.href='details3'" class="knopDetails">Klik hier</button>
+            </td>
+
+            <td class="tdDetailsRow">
+                <h2>Vochtigheid sensor 2</h2>
+                <button onclick="window.location.href='details4'" class="knopDetails">Klik hier</button>
             </td>
         </tr>
         <tr>
-            <td><h2>Temperatuur sensor 2</h2></td>
-        </tr>
-        <tr>
-            <td>
-                <a href="details2">
-                    <button class="knop" style="width: 100%">Klik hier</button>
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td><h2>Vochtigheid sensor 1</h2></td>
-        </tr>
-        <tr>
-            <td>
-                <a href="details3">
-                    <button class="knop" style="width: 100%">Klik hier</button>
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td><h2>Vochtigheid sensor 2</h2></td>
-        </tr>
-        <tr>
-            <td>
-                <a href="details4">
-                    <button class="knop" style="width: 100%">Klik hier</button>
-                </a>
+            <td colspan="4">
+                <div style="width:100%; margin-top: 3%">
+                    <canvas id="canvas"></canvas>
+                </div>
             </td>
         </tr>
 
     </table>
+    <script src="/static/js/Details3.js"></script>
+    <script>
+
+        loadChart([19.25, 22.22, 12.22, 4.33, 5.55]);
+
+    </script>
 {% endblock %}

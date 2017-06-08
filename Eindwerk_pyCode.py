@@ -45,13 +45,13 @@ def background_program():
         time.sleep(1)
         print("Background task!")
 
+# if thread is None:
+#     thread = Thread(target=background_program)
+#     thread.start()
+
 
 @app.route('/')
 def Home():
-    # global thread
-    # if thread is None:
-    #     thread = Thread(target=background_program)
-    #     thread.start()
     return render_template("Home.html")
 
 
@@ -78,10 +78,6 @@ def Details4():
 @app.route('/over')
 def Over():
     return render_template("Over.html")
-
-@app.route('/test')
-def test():
-    return render_template("test.html")
 
 
 @app.route('/set', methods=['POST'])
