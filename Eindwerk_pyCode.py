@@ -59,8 +59,8 @@ def doit(arg):
     print("Stopping Background task!.")
 
 
-t = threading.Thread(target=doit, args=("task",))
-t.start()
+# t = threading.Thread(target=doit, args=("task",))
+# t.start()
 
 
 @app.route('/')

@@ -6,7 +6,7 @@ body {
     font-family: 'Roboto Medium', sans-serif;
     width: 1366px;
     margin: auto;
-    background-image: url("/static/images/backgorund.png") ;
+    background-image: url("/static/images/backgorund.png");
 }
 
 div.header {
