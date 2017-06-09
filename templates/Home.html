@@ -8,9 +8,77 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Welkom op Home!</h1>
+
+    <br>
     <fieldset>
-        <legend><h2>Data sensoren:</h2></legend>
+        <legend><h3>Manuele controle:</h3></legend>
+        <table class="talbeDetails">
+            <tr>
+                <td class="tdDetailsRow">
+                    <h2>Pomp:</h2>
+                    <form action="/set" method="post">
+                        <button type="submit" value="11" name="value_set" class="knop">AAN</button>
+                    </form>
+                    <form action="/set" method="post">
+                        <button type="submit" value="10" name="value_set" class="knop">UIT</button>
+                    </form>
+                </td>
+                <td class="tdDetailsRow">
+                    <h2>Ventilator:</h2>
+                    <form action="/set" method="post">
+                        <button type="submit" value="21" name="value_set" class="knop">AAN</button>
+                    </form>
+                    <form action="/set" method="post">
+                        <button type="submit" value="20" name="value_set" class="knop">UIT</button>
+                    </form>
+                </td>
+                <td class="tdDetailsRow">
+                    <h2>LED strip:</h2>
+                    <form action="/set" method="post">
+                        <button type="submit" value="31" name="value_set" class="knop">AAN</button>
+                    </form>
+                    <form action="/set" method="post">
+                        <button type="submit" value="30" name="value_set" class="knop">UIT</button>
+                    </form>
+                </td>
+                <td class="tdDetailsRow">
+                    <h2>Dak:</h2>
+                    <form action="/set" method="post">
+                        <button type="submit" value="41" name="value_set" class="knop">OPEN</button>
+                    </form>
+                    <form action="/set" method="post">
+                        <button type="submit" value="40" name="value_set" class="knop">TOE</button>
+                    </form>
+                </td>
+        </table>
+    </fieldset>
+    <br>
+
+    <fieldset>
+        <legend><h3>Status:</h3></legend>
+        <table style="width: 100%; margin: auto">
+            <tr>
+                <th>Temperatuur binnen</th>
+                <th>Temperatuur buiten</th>
+                <th>Humidity zone 1</th>
+                <th>Humidity zone 2</th>
+            </tr>
+            <tr style="text-align: center">
+                {% for log in StateTemp %}
+                    <td>{{ log[1] }} °C</td>
+                    <td>{{ log[2] }} °C</td>
+                {% endfor %}
+                {% for log in StateHumidity %}
+                    <td>{{ log[1] }} %</td>
+                    <td>{{ log[2] }} %</td>
+                {% endfor %}
+            </tr>
+        </table>
+    </fieldset>
+
+    <br>
+    <fieldset>
+        <legend><h3>Data sensoren:</h3></legend>
         <table style="width: 100%">
             <tr>
                 <td>
@@ -20,7 +88,7 @@
                             <th class="log">Temp Binnen</th>
                             <th class="log">Datum/Tijd</th>
                         </tr>
-                        {% for log in Data %}
+                        {% for log in Temp %}
                             <tr class="log">
                                 <td class="log">{{ log[0] }}</td>
                                 <td class="log">{{ log[1] }}°C</td>
@@ -36,7 +104,7 @@
                             <th class="log">Temp Buiten</th>
                             <th class="log">Datum/Tijd</th>
                         </tr>
-                        {% for log in Data %}
+                        {% for log in Temp %}
                             <tr class="log">
                                 <td class="log">{{ log[0] }}</td>
                                 <td class="log">{{ log[2] }}°C</td>
@@ -54,7 +122,7 @@
                             <th class="log">Vocht zone 1</th>
                             <th class="log">Datum/Tijd</th>
                         </tr>
-                        {% for log in Data2 %}
+                        {% for log in Humidity %}
                             <tr class="log">
                                 <td class="log">{{ log[0] }}</td>
                                 <td class="log">{{ log[1] }}%</td>
@@ -70,7 +138,7 @@
                             <th class="log">Vocht zone 2</th>
                             <th class="log">Datum/Tijd</th>
                         </tr>
-                        {% for log in Data2 %}
+                        {% for log in Humidity %}
                             <tr class="log">
                                 <td class="log">{{ log[0] }}</td>
                                 <td class="log">{{ log[2] }}%</td>
@@ -82,61 +150,5 @@
             </tr>
         </table>
     </fieldset>
-
-    <br>
-    <br>
-    <br>
-
-    <table class="talbeDetails">
-        <tr>
-            <td class="tdDetailsRow">
-                <h2>Pomp:</h2>
-                <form action="/set" method="post">
-                    <button type="submit" value="11" name="value_set" class="knop">AAN</button>
-                </form>
-                <form action="/set" method="post">
-                    <button type="submit" value="10" name="value_set" class="knop">UIT</button>
-                </form>
-            </td>
-            <td class="tdDetailsRow">
-                <h2>Ventilator:</h2>
-                <form action="/set" method="post">
-                    <button type="submit" value="21" name="value_set" class="knop">AAN</button>
-                </form>
-                <form action="/set" method="post">
-                    <button type="submit" value="20" name="value_set" class="knop">UIT</button>
-                </form>
-            </td>
-            <td class="tdDetailsRow">
-                <h2>LED strip:</h2>
-                <form action="/set" method="post">
-                    <button type="submit" value="31" name="value_set" class="knop">AAN</button>
-                </form>
-                <form action="/set" method="post">
-                    <button type="submit" value="30" name="value_set" class="knop">UIT</button>
-                </form>
-            </td>
-            <td class="tdDetailsRow">
-                <h2>Dak:</h2>
-                <form action="/set" method="post">
-                    <button type="submit" value="41" name="value_set" class="knop">OPEN</button>
-                </form>
-                <form action="/set" method="post">
-                    <button type="submit" value="40" name="value_set" class="knop">TOE</button>
-                </form>
-            </td>
-            <td class="tdDetailsRow">
-                <h2>Temperatuur:</h2>
-                <form action="/set" method="post">
-                    <button type="submit" value="51" name="value_set" class="knop" style="width: 100%">READ</button>
-                </form>
-            </td>
-            <td class="tdDetailsRow">
-                <h2>Vochtigheid:</h2>
-                <form action="/set" method="post">
-                    <button type="submit" value="61" name="value_set" class="knop" style="width: 100%">READ</button>
-                </form>
-            </td>
-    </table>
 
 {% endblock %}

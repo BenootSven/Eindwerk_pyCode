@@ -2,9 +2,9 @@ function loadChart(data){
     var config = {
     type: 'line',
     data: {
-        labels: ["00:00", "February", "March", "April", "May", "June", "July", "00:00"],
+        labels: ["9min geleden", "8min geleden", "7min geleden", "6min geleden", "5min geleden", "4min geleden", "3min geleden", "2min geleden" ,"1min geleden","0min geleden"],
         datasets: [{
-            label: "temp",
+            label: "humidity",
             backgroundColor: window.chartColors.red,
             borderColor: window.chartColors.red,
             data: data,
@@ -12,10 +12,11 @@ function loadChart(data){
         }]
     },
     options: {
+        animation: false,
         responsive: true,
         title: {
             display: true,
-            text: 'temperatuur sensor 1'
+            text: 'humidity zone 1'
         },
         tooltips: {
             mode: 'index',
@@ -30,14 +31,14 @@ function loadChart(data){
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Month'
+                    labelString: 'Tijd (minuten)'
                 }
             }],
             yAxes: [{
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Value'
+                    labelString: 'Vochtigheid (%)'
                 }
             }]
         }

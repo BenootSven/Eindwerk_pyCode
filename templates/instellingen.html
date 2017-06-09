@@ -8,11 +8,13 @@
 {% endblock %}
 
 {% block body %}
-<h2>Ventilator:</h2>
-<form action="/setInstellingen" method="post">
-    <button type="submit" value="21" name="value_set" class="knop">AAN</button>
-</form>
-<form action="/setInstellingen" method="post">
-    <button type="submit" value="20" name="value_set" class="knop">UIT</button>
-</form>
+    <div style="visibility: hidden">
+        <h2>Ventilator:</h2>
+        <form action="/setInstellingen" method="post">
+            <button type="submit" value="21" name="value_set" class="knop">AAN</button>
+        </form>
+        <form action="/setInstellingen" method="post">
+            <button type="submit" value="20" name="value_set" class="knop">UIT</button>
+        </form>
+    </div>
 {% endblock %}

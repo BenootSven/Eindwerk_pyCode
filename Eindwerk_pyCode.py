@@ -3,12 +3,11 @@ from Klassen.I2CLCDklasse import i2cLCD
 from Klassen.MCPklasse import SPI
 from Klassen.ServoEindwerkKlasse import Servo
 from Klassen.OneWireSensorKlasse import OneWireSensor
-from threading import Thread
+import threading
 from Klassen.class_db import DbClass
 from flask_socketio import SocketIO
 import RPi.GPIO as GPIO
 import time
-from random import randint, uniform
 
 db = DbClass()
 
@@ -36,6 +35,8 @@ app = Flask(__name__)
 socketio = SocketIO(app)
 thread = None
 
+runThread = True
+
 
 def shutdown_server():
     func = request.environ.get('werkzeug.server.shutdown')
@@ -44,8 +45,9 @@ def shutdown_server():
     func()
 
 
-def background_program():
-    while True:
+def doit(arg):
+    t = threading.currentThread()
+    while getattr(t, "do_run", True):
         vocht1 = round((100 - (MCP.readChannel(0) / 1023) * 100), 2)
         vocht2 = round((100 - (MCP.readChannel(1) / 1023) * 100), 2)
         temp1 = round(onewire1.read_temp(), 2)
@@ -54,18 +56,20 @@ def background_program():
         db.HumidityToDatabase(vocht1, vocht2)
         time.sleep(5)
         print("Background task!")
+    print("Stopping Background task!.")
 
 
-# if thread is None:
-#     thread = Thread(target=background_program)
-#     thread.start()
+t = threading.Thread(target=doit, args=("task",))
+t.start()
 
 
 @app.route('/')
 def Home():
-    data = db.getDataFromDatabase("Temperature")
-    data2 = db.getDataFromDatabase("Humidity")
-    return render_template("Home.html", Data=data, Data2=data2)
+    temp = db.getDataFromDatabase("Temperature")
+    humidity = db.getDataFromDatabase("Humidity")
+    statetemp = db.getOneSingleRowData("Temperature")
+    statehumidity = db.getOneSingleRowData("Humidity")
+    return render_template("Home.html", Temp=temp, Humidity=humidity, StateTemp=statetemp, StateHumidity=statehumidity)
 
 
 @app.route('/set', methods=['POST'])
@@ -130,24 +134,6 @@ def handle_data():
         LCD.lcd_string("Dak toe", 1)
         servo.servoDakToe(0.03)
         servo.stopServo()
-
-    if tekst == "51":
-        temp1 = onewire1.read_temp()
-        temp2 = onewire2.read_temp()
-        print("temperatuur binnen = %s" % temp1)
-        print("temperatuur buiten = %s" % temp2)
-        LCD.lcd_clear()
-        LCD.lcd_string("binnen = " + str(temp1), 0)
-        LCD.lcd_string("buiten = " + str(temp2), 1)
-
-    if tekst == "61":
-        vocht1 = (100 - (MCP.readChannel(0) / 1023) * 100)
-        vocht2 = (100 - (MCP.readChannel(1) / 1023) * 100)
-        print("Vochtigheid sensor1 = %s" % vocht1)
-        print("Vochtigheid sensor2 = %s" % vocht2)
-        LCD.lcd_clear()
-        LCD.lcd_string("Vocht1 = %0.2f" % vocht1, 0)
-        LCD.lcd_string("Vocht2 = %0.2f" % vocht2, 1)
 
     return redirect("/")
 
@@ -214,7 +200,6 @@ def truncate():
 
 @app.route('/shutdown', methods=['GET'])
 def shutdown():
-    shutdown_server()
     GPIO.output(Rled, GPIO.LOW)
     GPIO.output(Gled, GPIO.LOW)
     GPIO.output(Bled, GPIO.LOW)
@@ -222,6 +207,9 @@ def shutdown():
     GPIO.output(fan, GPIO.LOW)
     LCD.lcd_clear(False)
     GPIO.cleanup()
+    t.do_run = False
+    t.join()
+    shutdown_server()
     return render_template("shutdown.html")
 
 
