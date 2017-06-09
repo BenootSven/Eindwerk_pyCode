@@ -1,10 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 
 body {
-    font-family: 'Open Sans', sans-serif;
+    /*font-family: 'Open Sans', sans-serif;*/
+    font-family: 'Roboto Medium', sans-serif;
     width: 1366px;
     margin: auto;
-    background-image: url("/static/images/backgorund.png");
+    background-image: url("/static/images/backgorund.png") ;
 }
 
 div.header {
@@ -57,6 +59,7 @@ img {
     border-radius: 7px;
     font-size: 20px;
     width: 50%;
+    cursor: pointer;
 }
 
 table.over {
@@ -84,7 +87,7 @@ button.knopDetails {
 
 table.talbeDetails {
     width: 100%;
-    border-spacing: 10px;
+    border-spacing: 20px;
     border-collapse: separate;
 }
 
@@ -133,4 +136,8 @@ tr.log:nth-child(odd) {
 th.log {
     background-color: #4CAF50;
     color: white;
+}
+
+fieldset {
+    border-radius: 5px;
 }
