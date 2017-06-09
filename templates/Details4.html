@@ -12,22 +12,22 @@
     <table class="talbeDetails">
         <tr>
             <td class="tdDetailsRow">
-                <h2>Temperatuur sensor 1</h2>
+                <h2>Temperatuur Binnen</h2>
                 <button onclick="window.location.href='details'" class="knopDetails">Klik hier</button>
             </td>
 
             <td class="tdDetailsRow">
-                <h2>Temperatuur sensor 2</h2>
+                <h2>Temperatuur Buiten</h2>
                 <button onclick="window.location.href='details2'" class="knopDetails">Klik hier</button>
             </td>
 
             <td class="tdDetailsRow">
-                <h2>Vochtigheid sensor 1</h2>
+                <h2>Vochtigheid Zone 1</h2>
                 <button onclick="window.location.href='details3'" class="knopDetails">Klik hier</button>
             </td>
 
             <td class="actief">
-                <h2>Vochtigheid sensor 2</h2>
+                <h2>Vochtigheid Zone 2</h2>
                 <button onclick="window.location.href='details4'" class="knopDetails">Klik hier</button>
             </td>
         </tr>
@@ -43,15 +43,7 @@
     <script src="/static/js/Details4.js"></script>
     <script>
 
-        loadChart([
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor()]);
+        loadChart({{ Data[::-1] }});
 
     </script>
 {% endblock %}

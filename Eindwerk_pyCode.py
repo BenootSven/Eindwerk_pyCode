@@ -8,6 +8,7 @@ from Klassen.class_db import DbClass
 from flask_socketio import SocketIO
 import RPi.GPIO as GPIO
 import time
+from random import randint, uniform
 
 db = DbClass()
 
@@ -45,7 +46,13 @@ def shutdown_server():
 
 def background_program():
     while True:
-        time.sleep(1)
+        vocht1 = round((100 - (MCP.readChannel(0) / 1023) * 100), 2)
+        vocht2 = round((100 - (MCP.readChannel(1) / 1023) * 100), 2)
+        temp1 = round(onewire1.read_temp(), 2)
+        temp2 = round(onewire2.read_temp(), 2)
+        db.TempToDatabase(temp1, temp2)
+        db.HumidityToDatabase(vocht1, vocht2)
+        time.sleep(5)
         print("Background task!")
 
 
@@ -56,47 +63,9 @@ def background_program():
 
 @app.route('/')
 def Home():
-    temp1 = 20.25
-    temp2 = 30.2
-    Vocht1 = 90.33
-    Vocht2 = 50.55
-    db.TempToDatabase(temp1, temp2)
-    db.HumidityToDatabase(Vocht1, Vocht2)
     data = db.getDataFromDatabase("Temperature")
     data2 = db.getDataFromDatabase("Humidity")
     return render_template("Home.html", Data=data, Data2=data2)
-
-
-@app.route('/details')
-def Details():
-    return render_template("Details.html")
-
-
-@app.route('/details2')
-def Details2():
-    return render_template("Details2.html")
-
-
-@app.route('/details3')
-def Details3():
-    return render_template("Details3.html")
-
-
-@app.route('/details4')
-def Details4():
-    return render_template("Details4.html")
-
-
-@app.route('/over')
-def Over():
-    return render_template("Over.html")
-
-
-@app.route('/truncate')
-def truncate():
-    db.truncate_table("Temperature")
-    db.truncate_table("Humidity")
-    return redirect("/")
 
 
 @app.route('/set', methods=['POST'])
@@ -180,6 +149,66 @@ def handle_data():
         LCD.lcd_string("Vocht1 = %0.2f" % vocht1, 0)
         LCD.lcd_string("Vocht2 = %0.2f" % vocht2, 1)
 
+    return redirect("/")
+
+
+@app.route('/details')
+def Details():
+    data = db.getDetailsFromDatabase("Temperature")
+    lijst = []
+    for Temp in data:
+        lijst.append(Temp[1])
+    return render_template("Details.html", Data=lijst)
+
+
+@app.route('/details2')
+def Details2():
+    data = db.getDetailsFromDatabase("Temperature")
+    lijst = []
+    for Temp in data:
+        lijst.append(Temp[2])
+    return render_template("Details2.html", Data=lijst)
+
+
+@app.route('/details3')
+def Details3():
+    data = db.getDetailsFromDatabase("Humidity")
+    lijst = []
+    for Humidity in data:
+        lijst.append(Humidity[1])
+    return render_template("Details3.html", Data=lijst)
+
+
+@app.route('/details4')
+def Details4():
+    data = db.getDetailsFromDatabase("Humidity")
+    lijst = []
+    for Humidity in data:
+        lijst.append(Humidity[2])
+    return render_template("Details4.html", Data=lijst)
+
+
+@app.route('/over')
+def Over():
+    return render_template("Over.html")
+
+
+@app.route('/instellingen')
+def instellingen():
+    return render_template('instellingen.html')
+
+
+@app.route('/setInstellingen', methods=['POST'])
+def setInstellingen():
+    tekst = request.form['value_set']
+    print(tekst)
+    return redirect('/instellingen')
+
+
+@app.route('/truncate')
+def truncate():
+    db.truncate_table("Temperature")
+    db.truncate_table("Humidity")
     return redirect("/")
 
 

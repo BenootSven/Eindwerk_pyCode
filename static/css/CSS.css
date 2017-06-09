@@ -2,7 +2,7 @@
 
 body {
     font-family: 'Open Sans', sans-serif;
-    width: 90%;
+    width: 1366px;
     margin: auto;
     background-color: rgb(217, 255, 214);
 }
@@ -78,6 +78,7 @@ button.knopDetails {
 table.talbeDetails {
     width: 100%;
     border-spacing: 10px;
+    border-collapse: separate;
 }
 
 td.tdDetailsRow {
@@ -85,6 +86,7 @@ td.tdDetailsRow {
     border-radius: 10px;
     background-color: rgb(184, 229, 181);
     box-shadow: 5px 5px 5px grey;
+    padding: 10px;
 }
 
 button.knopDetails:hover {
@@ -99,10 +101,26 @@ button.knopDetails:hover {
     box-shadow: 5px 5px 5px grey;
 }
 
-table.home{
+table.log {
     border-collapse: collapse;
+    width: 100%;
+    border: 1px solid green;
+    box-shadow: 5px 5px 5px grey;
 }
 
-table.home, th.home, td.home {
-    border: 1px solid black;
+th.log, td.log {
+    text-align: center;
+    padding-right: 20px;
+}
+
+tr.log:nth-child(even) {
+    background-color: #f2f2f2
+}
+
+tr.log:nth-child(odd){
+    background-color: lightgray;
+}
+th.log {
+    background-color: #4CAF50;
+    color: white;
 }

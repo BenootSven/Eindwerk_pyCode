@@ -21,6 +21,17 @@ class DbClass:
         self.__cursor.close()
         return result
 
+    def getDetailsFromDatabase(self, database):
+        self.__connection = connector.connect(**self.__dsn)
+        self.__cursor = self.__connection.cursor()
+        # Query zonder parameters
+        sqlQuery = "SELECT * FROM %s ORDER BY ID DESC LIMIT 10" % database
+
+        self.__cursor.execute(sqlQuery)
+        result = self.__cursor.fetchall()
+        self.__cursor.close()
+        return result
+
     def TempToDatabase(self, Tempbinnen, Tempbuiten):
         self.__connection = connector.connect(**self.__dsn)
         self.__cursor = self.__connection.cursor()

@@ -9,165 +9,134 @@
 
 {% block body %}
     <h1>Welkom op Home!</h1>
-    <table style="width: 100%">
+    <fieldset>
+        <legend><h2>Data sensoren:</h2></legend>
+        <table style="width: 100%">
+            <tr>
+                <td>
+                    <table class="log">
+                        <tr class="log">
+                            <th class="log">ID</th>
+                            <th class="log">Temp Binnen</th>
+                            <th class="log">Datum/Tijd</th>
+                        </tr>
+                        {% for log in Data %}
+                            <tr class="log">
+                                <td class="log">{{ log[0] }}</td>
+                                <td class="log">{{ log[1] }}°C</td>
+                                <td class="log">{{ log[3] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </td>
+                <td>
+                    <table class="log">
+                        <tr class="log">
+                            <th class="log">ID</th>
+                            <th class="log">Temp Buiten</th>
+                            <th class="log">Datum/Tijd</th>
+                        </tr>
+                        {% for log in Data %}
+                            <tr class="log">
+                                <td class="log">{{ log[0] }}</td>
+                                <td class="log">{{ log[2] }}°C</td>
+                                <td class="log">{{ log[3] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table class="log">
+                        <tr class="log">
+                            <th class="log">ID</th>
+                            <th class="log">Vocht zone 1</th>
+                            <th class="log">Datum/Tijd</th>
+                        </tr>
+                        {% for log in Data2 %}
+                            <tr class="log">
+                                <td class="log">{{ log[0] }}</td>
+                                <td class="log">{{ log[1] }}%</td>
+                                <td class="log">{{ log[3] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </td>
+                <td>
+                    <table class="log">
+                        <tr class="log">
+                            <th class="log">ID</th>
+                            <th class="log">Vocht zone 2</th>
+                            <th class="log">Datum/Tijd</th>
+                        </tr>
+                        {% for log in Data2 %}
+                            <tr class="log">
+                                <td class="log">{{ log[0] }}</td>
+                                <td class="log">{{ log[2] }}%</td>
+                                <td class="log">{{ log[3] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <br>
+    <br>
+    <br>
+
+    <table class="talbeDetails">
         <tr>
-            <td>
-                <table style="width: 100%; border: 1px solid black; text-align: center">
-                    <tr>
-                        <th>ID</th>
-                        <th>Temp Binnen</th>
-                        <th>Datum/Tijd</th>
-                    </tr>
-                    {% for log in Data %}
-                        <tr>
-                            <td>{{ log[0] }}</td>
-                            <td>{{ log[1] }}</td>
-                            <td>{{ log[3] }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            </td>
-            <td>
-                <table style="width: 100%;border: 1px solid black; text-align: center">
-                    <tr>
-                        <th>ID</th>
-                        <th>Temp Buiten</th>
-                        <th>Datum/Tijd</th>
-                    </tr>
-                    {% for log in Data %}
-                        <tr>
-                            <td>{{ log[0] }}</td>
-                            <td>{{ log[2] }}</td>
-                            <td>{{ log[3] }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <table style="width: 100%; border: 1px solid black; text-align: center">
-                    <tr>
-                        <th>ID</th>
-                        <th>Vocht zone 1</th>
-                        <th>Datum/Tijd</th>
-                    </tr>
-                    {% for log in Data2 %}
-                        <tr>
-                            <td>{{ log[0] }}</td>
-                            <td>{{ log[1] }}</td>
-                            <td>{{ log[3] }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            </td>
-            <td>
-                <table style="width: 100%;border: 1px solid black; text-align: center">
-                    <tr>
-                        <th>ID</th>
-                        <th>Vocht zone 2</th>
-                        <th>Datum/Tijd</th>
-                    </tr>
-                    {% for log in Data2 %}
-                        <tr>
-                            <td>{{ log[0] }}</td>
-                            <td>{{ log[2] }}</td>
-                            <td>{{ log[3] }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            </td>
-        </tr>
-
-    </table>
-
-
-    <br>
-    <br>
-    <br>
-
-    <table class="home">
-        <tr class="home">
-            <td class="home">
-                Pomp:
-            </td>
-            <td class="home">
+            <td class="tdDetailsRow">
+                <h2>Pomp:</h2>
                 <form action="/set" method="post">
                     <button type="submit" value="11" name="value_set" class="knop">AAN</button>
                 </form>
-            </td>
-            <td class="home">
                 <form action="/set" method="post">
                     <button type="submit" value="10" name="value_set" class="knop">UIT</button>
                 </form>
             </td>
-
-        </tr>
-        <tr class="home">
-            <td class="home">
-                Ventilator:
-            </td>
-            <td class="home">
+            <td class="tdDetailsRow">
+                <h2>Ventilator:</h2>
                 <form action="/set" method="post">
                     <button type="submit" value="21" name="value_set" class="knop">AAN</button>
                 </form>
-            </td>
-            <td class="home">
                 <form action="/set" method="post">
                     <button type="submit" value="20" name="value_set" class="knop">UIT</button>
                 </form>
             </td>
-        </tr>
-        <tr class="home">
-            <td class="home">
-                LED strip:
-            </td>
-            <td class="home">
+            <td class="tdDetailsRow">
+                <h2>LED strip:</h2>
                 <form action="/set" method="post">
                     <button type="submit" value="31" name="value_set" class="knop">AAN</button>
                 </form>
-            </td>
-            <td class="home">
                 <form action="/set" method="post">
                     <button type="submit" value="30" name="value_set" class="knop">UIT</button>
                 </form>
             </td>
-        </tr>
-        <tr class="home">
-            <td class="home">
-                Dak:
-            </td>
-            <td class="home">
+            <td class="tdDetailsRow">
+                <h2>Dak:</h2>
                 <form action="/set" method="post">
                     <button type="submit" value="41" name="value_set" class="knop">OPEN</button>
                 </form>
-            </td>
-            <td class="home">
                 <form action="/set" method="post">
                     <button type="submit" value="40" name="value_set" class="knop">TOE</button>
                 </form>
             </td>
-        </tr>
-        <tr class="home">
-            <td class="home">
-                Temperatuur:
-            </td>
-            <td colspan="2" class="home">
+            <td class="tdDetailsRow">
+                <h2>Temperatuur:</h2>
                 <form action="/set" method="post">
                     <button type="submit" value="51" name="value_set" class="knop" style="width: 100%">READ</button>
                 </form>
             </td>
-        </tr>
-        <tr class="home">
-            <td class="home">
-                Vochtigheid:
-            </td>
-            <td colspan="2" class="home">
+            <td class="tdDetailsRow">
+                <h2>Vochtigheid:</h2>
                 <form action="/set" method="post">
                     <button type="submit" value="61" name="value_set" class="knop" style="width: 100%">READ</button>
                 </form>
             </td>
-        </tr>
     </table>
 
 {% endblock %}
