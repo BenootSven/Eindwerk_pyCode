@@ -5,7 +5,6 @@ from Klassen.ServoEindwerkKlasse import Servo
 from Klassen.OneWireSensorKlasse import OneWireSensor
 import threading
 from Klassen.class_db import DbClass
-from flask_socketio import SocketIO
 import RPi.GPIO as GPIO
 import time
 
@@ -32,10 +31,6 @@ onewire1 = OneWireSensor('/sys/bus/w1/devices/28-000008c5ac92/w1_slave')
 onewire2 = OneWireSensor('/sys/bus/w1/devices/28-000008e097d8/w1_slave')
 
 app = Flask(__name__)
-socketio = SocketIO(app)
-thread = None
-
-runThread = True
 
 
 def shutdown_server():
@@ -45,22 +40,22 @@ def shutdown_server():
     func()
 
 
-def doit(arg):
+def BackgroundProgram():
     t = threading.currentThread()
     while getattr(t, "do_run", True):
-        vocht1 = round((100 - (MCP.readChannel(0) / 1023) * 100), 2)
-        vocht2 = round((100 - (MCP.readChannel(1) / 1023) * 100), 2)
-        temp1 = round(onewire1.read_temp(), 2)
-        temp2 = round(onewire2.read_temp(), 2)
-        db.TempToDatabase(temp1, temp2)
-        db.HumidityToDatabase(vocht1, vocht2)
-        time.sleep(5)
+        # vocht1 = round((100 - (MCP.readChannel(0) / 1023) * 100), 2)
+        # vocht2 = round((100 - (MCP.readChannel(1) / 1023) * 100), 2)
+        # temp1 = round(onewire1.read_temp(), 2)
+        # temp2 = round(onewire2.read_temp(), 2)
+        # db.TempToDatabase(temp1, temp2)
+        # db.HumidityToDatabase(vocht1, vocht2)
+        time.sleep(1)
         print("Background task!")
     print("Stopping Background task!.")
 
 
-# t = threading.Thread(target=doit, args=("task",))
-# t.start()
+t = threading.Thread(target=BackgroundProgram)
+t.start()
 
 
 @app.route('/')
@@ -207,8 +202,8 @@ def shutdown():
     GPIO.output(fan, GPIO.LOW)
     LCD.lcd_clear(False)
     GPIO.cleanup()
-    # t.do_run = False
-    # t.join()
+    t.do_run = False
+    t.join()
     shutdown_server()
     return render_template("shutdown.html")
 
