@@ -72,7 +72,7 @@ def Home():
     return render_template("Home.html", Temp=temp, Humidity=humidity, StateTemp=statetemp, StateHumidity=statehumidity)
 
 
-@app.route('/set', methods=['POST'])
+@app.route('/setGPIO', methods=['POST'])
 def handle_data():
     tekst = request.form['value_set']
     print(tekst)
