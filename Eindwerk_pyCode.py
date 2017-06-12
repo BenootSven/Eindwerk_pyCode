@@ -207,8 +207,8 @@ def shutdown():
     GPIO.output(fan, GPIO.LOW)
     LCD.lcd_clear(False)
     GPIO.cleanup()
-    t.do_run = False
-    t.join()
+    # t.do_run = False
+    # t.join()
     shutdown_server()
     return render_template("shutdown.html")
 
