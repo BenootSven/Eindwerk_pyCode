@@ -43,14 +43,15 @@ def shutdown_server():
 def BackgroundProgram():
     t = threading.currentThread()
     while getattr(t, "do_run", True):
-        # vocht1 = round((100 - (MCP.readChannel(0) / 1023) * 100), 2)
-        # vocht2 = round((100 - (MCP.readChannel(1) / 1023) * 100), 2)
-        # temp1 = round(onewire1.read_temp(), 2)
-        # temp2 = round(onewire2.read_temp(), 2)
-        # db.TempToDatabase(temp1, temp2)
-        # db.HumidityToDatabase(vocht1, vocht2)
+        vocht1 = round((100 - (MCP.readChannel(0) / 1023) * 100), 2)
+        vocht2 = round((100 - (MCP.readChannel(1) / 1023) * 100), 2)
+        temp1 = round(onewire1.read_temp(), 2)
+        temp2 = round(onewire2.read_temp(), 2)
+        db.TempToDatabase(temp1, temp2)
+        db.HumidityToDatabase(vocht1, vocht2)
         time.sleep(1)
         print("Background task!")
+        print(Humidity, Temperature, Datalogging, LEDTijd)
     print("Stopping Background task!.")
 
 
@@ -181,8 +182,8 @@ def instellingen():
 
 @app.route('/setInstellingen', methods=['POST'])
 def setInstellingen():
-    tekst = request.form['value_set']
-    print(tekst)
+    Temperature = request.form['Temperature']
+    Humidity = request.form['Humidity']
     return redirect('/instellingen')
 
 

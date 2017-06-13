@@ -140,3 +140,33 @@ th.log {
 fieldset {
     border-radius: 5px;
 }
+
+table.instellingenOutside {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 720px;
+    width: 75%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+table.instellingenOutside, td.instellingenOutside, tr.instellingenOutside {
+    border: 1px solid black;
+}
+
+table.instellingenInside {
+    margin: auto;
+    height: 75%;
+    width: 75%;
+    table-layout: fixed;
+
+}
+
+td.instellingenInside {
+    text-align: center;
+    border-radius: 10px;
+    background-color: rgb(184, 229, 181);
+    table-layout: fixed;
+}

@@ -8,13 +8,34 @@
 {% endblock %}
 
 {% block body %}
-    <div style="visibility: hidden">
-        <h2>Ventilator:</h2>
-        <form action="/setInstellingen" method="post">
-            <button type="submit" value="21" name="value_set" class="knop">AAN</button>
-        </form>
-        <form action="/setInstellingen" method="post">
-            <button type="submit" value="20" name="value_set" class="knop">UIT</button>
-        </form>
-    </div>
+    <form action="/setInstellingen" method="post">
+        <table class="instellingenOutside">
+            <tr class="instellingenOutside">
+                <td class="instellingenOutside">
+                    <table class="instellingenInside">
+                        <tr>
+                            <td class="instellingenInside">
+                                <div>Wanted Ttemp:</div>
+                                <div>Current set:</div>
+                                <input type="text" name="Temperature"><br><br>
+                                <button type="submit" class="knop">OK</button>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="instellingenOutside">
+                    <table class="instellingenInside">
+                        <tr>
+                            <td class="instellingenInside">
+                                <div>Wanted Humidity:</div>
+                                <div>Current set:</div>
+                                <input type="text" name="Humidity"><br><br>
+                                <button type="submit" class="knop">OK</button>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </form>
 {% endblock %}
