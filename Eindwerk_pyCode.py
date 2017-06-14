@@ -51,7 +51,6 @@ def BackgroundProgram():
         db.HumidityToDatabase(vocht1, vocht2)
         time.sleep(1)
         print("Background task!")
-        print(Humidity, Temperature, Datalogging, LEDTijd)
     print("Stopping Background task!.")
 
 
