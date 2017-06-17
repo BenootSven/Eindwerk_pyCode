@@ -49,7 +49,7 @@ def BackgroundProgram():
         temp2 = round(onewire2.read_temp(), 2)
         db.TempToDatabase(temp1, temp2)
         db.HumidityToDatabase(vocht1, vocht2)
-        time.sleep(1)
+        time.sleep(5)
         print("Background task!")
     print("Stopping Background task!.")
 
@@ -176,13 +176,32 @@ def Over():
 
 @app.route('/instellingen')
 def instellingen():
-    return render_template('instellingen.html')
+    data = db.getOneSingleRowData("Settings")
+    return render_template('instellingen.html', Data=data)
 
 
 @app.route('/setInstellingen', methods=['POST'])
 def setInstellingen():
-    Temperature = request.form['Temperature']
-    Humidity = request.form['Humidity']
+    Temp = 0
+    Hum = 0
+    settings = db.getOneSingleRowData("Settings")
+    for setting in settings:
+        Temp = setting[1]
+        Hum = setting[2]
+
+    try:
+        Temperature = request.form['Temperature']
+        if Temperature == "":
+            Temperature = Temp
+        Humidity = request.form['Humidity']
+        if Humidity == "":
+            Humidity = Hum
+
+        db.SettingsToDatabase(int(Temperature), int(Humidity))
+        print(Temperature, Humidity)
+    except:
+        print("error in wegschrijven of ingava")
+
     return redirect('/instellingen')
 
 

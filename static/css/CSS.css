@@ -146,14 +146,14 @@ table.instellingenOutside {
     margin-bottom: 50px;
     margin-left: auto;
     margin-right: auto;
-    height: 720px;
+    height: 300px;
     width: 75%;
     border-collapse: collapse;
     text-align: center;
 }
 
 table.instellingenOutside, td.instellingenOutside, tr.instellingenOutside {
-    border: 1px solid black;
+    /*border: 1px solid black;*/
 }
 
 table.instellingenInside {

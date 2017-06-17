@@ -15,8 +15,10 @@
                     <table class="instellingenInside">
                         <tr>
                             <td class="instellingenInside">
-                                <div>Wanted Ttemp:</div>
-                                <div>Current set:</div>
+                                <h2>Wanted Ttemp:</h2>
+                                {% for setting in Data %}
+                                <div>Current set: {{ setting[1] }}°C</div>
+                                {% endfor %}
                                 <input type="text" name="Temperature"><br><br>
                                 <button type="submit" class="knop">OK</button>
                             </td>
@@ -27,8 +29,10 @@
                     <table class="instellingenInside">
                         <tr>
                             <td class="instellingenInside">
-                                <div>Wanted Humidity:</div>
-                                <div>Current set:</div>
+                                <h2>Wanted Humidity:</h2>
+                                {% for setting in Data %}
+                                <div>Current set: {{ setting[2] }}%</div>
+                                {% endfor %}
                                 <input type="text" name="Humidity"><br><br>
                                 <button type="submit" class="knop">OK</button>
                             </td>
