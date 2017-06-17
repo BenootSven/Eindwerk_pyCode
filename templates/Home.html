@@ -11,54 +11,47 @@
 
     <br>
     <fieldset>
-        <legend><h3>Manuele controle:</h3></legend>
-        <table class="talbeDetails">
-            <tr>
-                <td class="tdDetailsRow">
-                    <div style="font-size: 30px; margin-bottom: 10px; ">
-                        Pomp:
-                    </div>
-                    <form action="/setGPIO" method="post">
-                        <button type="submit" value="11" name="value_set" class="knop">AAN</button>
-                    </form>
-                    <form action="/setGPIO" method="post" style="margin-top: 5px">
-                        <button type="submit" value="10" name="value_set" class="knop">UIT</button>
-                    </form>
-                </td>
-                <td class="tdDetailsRow">
-                    <div style="font-size: 30px; margin-bottom: 10px; ">
-                        Ventilator:
-                    </div>
-                    <form action="/setGPIO" method="post">
-                        <button type="submit" value="21" name="value_set" class="knop">AAN</button>
-                    </form>
-                    <form action="/setGPIO" method="post" style="margin-top: 5px">
-                        <button type="submit" value="20" name="value_set" class="knop">UIT</button>
-                    </form>
-                </td>
-                <td class="tdDetailsRow">
-                    <div style="font-size: 30px; margin-bottom: 10px; ">
-                        LED strip:
-                    </div>
-                    <form action="/setGPIO" method="post">
-                        <button type="submit" value="31" name="value_set" class="knop">AAN</button>
-                    </form>
-                    <form action="/setGPIO" method="post" style="margin-top: 5px">
-                        <button type="submit" value="30" name="value_set" class="knop">UIT</button>
-                    </form>
-                </td>
-                <td class="tdDetailsRow">
-                    <div style="font-size: 30px; margin-bottom: 10px; ">
-                        Dak:
-                    </div>
-                    <form action="/setGPIO" method="post">
-                        <button type="submit" value="41" name="value_set" class="knop">OPEN</button>
-                    </form>
-                    <form action="/setGPIO" method="post" style="margin-top: 5px">
-                        <button type="submit" value="40" name="value_set" class="knop">TOE</button>
-                    </form>
-                </td>
-        </table>
+        <form action="/setGPIO" method="post">
+            <legend><h3>Manuele controle:</h3></legend>
+
+
+            <div>Manual ore Automatic (current set: {{ state }} ):
+                <button type="submit" value="1" name="value_set">Manual</button>
+                <button type="submit" value="0" name="value_set">Auto</button>
+            </div>
+
+            <table class="talbeDetails">
+                <tr>
+                    <td class="tdDetailsRow">
+                        <div style="font-size: 30px; margin-bottom: 10px; ">
+                            Pomp:
+                        </div>
+                            <button type="submit" value="11" name="value_set" class="knop">AAN</button>
+                            <button type="submit" value="10" name="value_set" class="knop" style="margin-top: 5px">UIT</button>
+                    </td>
+                    <td class="tdDetailsRow">
+                        <div style="font-size: 30px; margin-bottom: 10px; ">
+                            Ventilator:
+                        </div>
+                            <button type="submit" value="21" name="value_set" class="knop">AAN</button>
+                            <button type="submit" value="20" name="value_set" class="knop" style="margin-top: 5px">UIT</button>
+                    </td>
+                    <td class="tdDetailsRow">
+                        <div style="font-size: 30px; margin-bottom: 10px; ">
+                            LED strip:
+                        </div>
+                            <button type="submit" value="31" name="value_set" class="knop">AAN</button>
+                            <button type="submit" value="30" name="value_set" class="knop" style="margin-top: 5px">UIT</button>
+                    </td>
+                    <td class="tdDetailsRow">
+                        <div style="font-size: 30px; margin-bottom: 10px; ">
+                            Dak:
+                        </div>
+                            <button type="submit" value="41" name="value_set" class="knop">OPEN</button>
+                            <button type="submit" value="40" name="value_set" class="knop" style="margin-top: 5px">TOE</button>
+                    </td>
+            </table>
+        </form>
     </fieldset>
     <br>
 

@@ -9,6 +9,9 @@ import RPi.GPIO as GPIO
 from Klassen.Hoofdprogramma import Main
 import time
 
+State = 0
+StateWeergave = "Automatic"
+
 db = DbClass()
 
 Program = Main()
@@ -69,76 +72,89 @@ def DataLogging():
 
 t = threading.Thread(target=MainProgram)
 t.start()
-
-t2 = threading.Thread(target=DataLogging)
-t2.start()
+#
+# t2 = threading.Thread(target=DataLogging)
+# t2.start()
 
 
 @app.route('/')
 def Home():
+    global StateWeergave
     temp = db.getDataFromDatabase("Temperature")
     humidity = db.getDataFromDatabase("Humidity")
     statetemp = db.getOneSingleRowData("Temperature")
     statehumidity = db.getOneSingleRowData("Humidity")
-    return render_template("Home.html", Temp=temp, Humidity=humidity, StateTemp=statetemp, StateHumidity=statehumidity)
+    return render_template("Home.html", Temp=temp, Humidity=humidity, StateTemp=statetemp, StateHumidity=statehumidity, state=StateWeergave)
 
 
 @app.route('/setGPIO', methods=['POST'])
 def handle_data():
+    global State, StateWeergave, t
     tekst = request.form['value_set']
-    print(tekst)
+    if State != int(tekst) and tekst != " " and (tekst == "1" or tekst == "0"):
+        State = int(tekst)
+        if State == 0:
+            StateWeergave = "Automatic"
+            t = threading.Thread(target=MainProgram)
+            t.start()
 
-    if tekst == "11":
-        LCD.lcd_clear()
-        LCD.lcd_string("Last update:", 0)
-        LCD.lcd_string("pomp aan", 1)
-        GPIO.output(pump, GPIO.HIGH)
+        if State == 1:
+            StateWeergave = "Manual"
+            t.do_run = False
+            t.join()
 
-    if tekst == "10":
-        LCD.lcd_clear()
-        LCD.lcd_string("Last update:", 0)
-        LCD.lcd_string("pomp uit", 1)
-        GPIO.output(pump, GPIO.LOW)
+    if State == 1:
+        if tekst == "11":
+            LCD.lcd_clear()
+            LCD.lcd_string("Last update:", 0)
+            LCD.lcd_string("pomp aan", 1)
+            GPIO.output(pump, GPIO.HIGH)
 
-    if tekst == "21":
-        LCD.lcd_clear()
-        LCD.lcd_string("Last update:", 0)
-        LCD.lcd_string("ventilator aan", 1)
-        GPIO.output(fan, GPIO.HIGH)
+        if tekst == "10":
+            LCD.lcd_clear()
+            LCD.lcd_string("Last update:", 0)
+            LCD.lcd_string("pomp uit", 1)
+            GPIO.output(pump, GPIO.LOW)
 
-    if tekst == "20":
-        LCD.lcd_clear()
-        LCD.lcd_string("Last update:", 0)
-        LCD.lcd_string("ventilator uit", 1)
-        GPIO.output(fan, GPIO.LOW)
+        if tekst == "21":
+            LCD.lcd_clear()
+            LCD.lcd_string("Last update:", 0)
+            LCD.lcd_string("ventilator aan", 1)
+            GPIO.output(fan, GPIO.HIGH)
 
-    if tekst == "31":
-        LCD.lcd_clear()
-        LCD.lcd_string("Last update:", 0)
-        LCD.lcd_string("LED aan", 1)
-        GPIO.output(Rled, GPIO.HIGH)
-        GPIO.output(Gled, GPIO.HIGH)
-        GPIO.output(Bled, GPIO.HIGH)
+        if tekst == "20":
+            LCD.lcd_clear()
+            LCD.lcd_string("Last update:", 0)
+            LCD.lcd_string("ventilator uit", 1)
+            GPIO.output(fan, GPIO.LOW)
 
-    if tekst == "30":
-        LCD.lcd_clear()
-        LCD.lcd_string("Last update:", 0)
-        LCD.lcd_string("LED uit", 1)
-        GPIO.output(Rled, GPIO.LOW)
-        GPIO.output(Gled, GPIO.LOW)
-        GPIO.output(Bled, GPIO.LOW)
+        if tekst == "31":
+            LCD.lcd_clear()
+            LCD.lcd_string("Last update:", 0)
+            LCD.lcd_string("LED aan", 1)
+            GPIO.output(Rled, GPIO.HIGH)
+            GPIO.output(Gled, GPIO.HIGH)
+            GPIO.output(Bled, GPIO.HIGH)
 
-    if tekst == "41":
-        LCD.lcd_clear()
-        LCD.lcd_string("Last update:", 0)
-        LCD.lcd_string("Dak open", 1)
-        servo.servoDakOpen(0.03)
+        if tekst == "30":
+            LCD.lcd_clear()
+            LCD.lcd_string("Last update:", 0)
+            LCD.lcd_string("LED uit", 1)
+            GPIO.output(Rled, GPIO.LOW)
+            GPIO.output(Gled, GPIO.LOW)
+            GPIO.output(Bled, GPIO.LOW)
 
-    if tekst == "40":
-        LCD.lcd_clear()
-        LCD.lcd_string("Last update:", 0)
-        LCD.lcd_string("Dak toe", 1)
-        servo.servoDakToe(0.03)
+        if tekst == "41":
+            LCD.lcd_clear()
+            LCD.lcd_string("Last update:", 0)
+            LCD.lcd_string("Dak open", 1)
+            servo.servoDakOpen(0.03)
+
+        if tekst == "40":
+            LCD.lcd_clear()
+            LCD.lcd_string("Last update:", 0)
+            LCD.lcd_string("Dak toe", 1)
+            servo.servoDakToe(0.03)
 
     return redirect("/")
 
@@ -231,8 +247,8 @@ def shutdown():
     GPIO.output(fan, GPIO.LOW)
     LCD.lcd_clear(False)
     GPIO.cleanup()
-    t.do_run = False
-    t.join()
+    # t.do_run = False
+    # t.join()
     t2.do_run = False
     t2.join()
     servo.stopServo()
