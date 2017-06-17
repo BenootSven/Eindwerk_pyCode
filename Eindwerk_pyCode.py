@@ -51,13 +51,18 @@ def shutdown_server():
 
 def MainProgram():
     t = threading.currentThread()
+    print("###Hoofdprogramma gestart###")
     while getattr(t, "do_run", True):
         Program.MainProgram()
-    print("Stopping Background task!.")
+    GPIO.output(pump, GPIO.LOW)
+    GPIO.output(fan, GPIO.LOW)
+    servo.servoDakToe(0.03)
+    print("###Hoofdprogramma gestopt###")
 
 
 def DataLogging():
     t = threading.currentThread()
+    print("###Datalogging Gestart###")
     while getattr(t, "do_run", True):
         vocht1 = round((100 - (MCP.readChannel(0) / 1023) * 100), 2)
         vocht2 = round((100 - (MCP.readChannel(1) / 1023) * 100), 2)
@@ -67,14 +72,14 @@ def DataLogging():
         db.HumidityToDatabase(vocht1, vocht2)
         time.sleep(5)
         print("Data Logged!")
-    print("Stopping Background task!.")
+    print("###Datalogging gestopt###")
 
 
 t = threading.Thread(target=MainProgram)
 t.start()
-#
-# t2 = threading.Thread(target=DataLogging)
-# t2.start()
+
+t2 = threading.Thread(target=DataLogging)
+t2.start()
 
 
 @app.route('/')
@@ -240,6 +245,10 @@ def truncate():
 
 @app.route('/shutdown', methods=['GET'])
 def shutdown():
+    t.do_run = False
+    t.join()
+    t2.do_run = False
+    t2.join()
     GPIO.output(Rled, GPIO.LOW)
     GPIO.output(Gled, GPIO.LOW)
     GPIO.output(Bled, GPIO.LOW)
@@ -247,10 +256,6 @@ def shutdown():
     GPIO.output(fan, GPIO.LOW)
     LCD.lcd_clear(False)
     GPIO.cleanup()
-    # t.do_run = False
-    # t.join()
-    t2.do_run = False
-    t2.join()
     servo.stopServo()
     shutdown_server()
     return render_template("shutdown.html")
