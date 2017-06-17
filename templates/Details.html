@@ -43,4 +43,9 @@
     <script>
         loadChart({{ Data[::-1] }});
     </script>
+    <script type="text/javascript">
+        setTimeout(function () {
+            location.reload(true);
+        }, 5000);
+    </script>
 {% endblock %}

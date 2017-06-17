@@ -70,7 +70,7 @@ def DataLogging():
         temp2 = round(onewire2.read_temp(), 2)
         db.TempToDatabase(temp1, temp2)
         db.HumidityToDatabase(vocht1, vocht2)
-        time.sleep(5)
+        time.sleep(4)
         print("Data Logged!")
     print("###Datalogging gestopt###")
 
