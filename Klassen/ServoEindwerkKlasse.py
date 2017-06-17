@@ -18,18 +18,20 @@ class Servo:
         self.__servo.start(12)
 
     def servoDakToe(self, delay=0.005, van=6.9, tot=12.0):
-        teller1 = van
-        while teller1 <= tot:
-            self.__servo.ChangeDutyCycle(teller1)
-            teller1 += 0.05
-            time.sleep(delay)
+        # teller1 = van
+        # while teller1 <= tot:
+        #     self.__servo.ChangeDutyCycle(teller1)
+        #     teller1 += 0.05
+        #     time.sleep(delay)
+        self.__servo.ChangeDutyCycle(tot)
 
     def servoDakOpen(self, delay=0.005, van=12.0, tot=6.9):
-        teller2 = van
-        while teller2 >= tot:
-            self.__servo.ChangeDutyCycle(teller2)
-            teller2 -= 0.05
-            time.sleep(delay)
+        # teller2 = van
+        # while teller2 >= tot:
+        #     self.__servo.ChangeDutyCycle(teller2)
+        #     teller2 -= 0.05
+        #     time.sleep(delay)
+        self.__servo.ChangeDutyCycle(tot)
 
     def stopServo(self):
         self.__servo.ChangeDutyCycle(0)

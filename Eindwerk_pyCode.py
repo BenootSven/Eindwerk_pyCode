@@ -6,9 +6,12 @@ from Klassen.OneWireSensorKlasse import OneWireSensor
 import threading
 from Klassen.class_db import DbClass
 import RPi.GPIO as GPIO
+from Klassen.Hoofdprogramma import Main
 import time
 
 db = DbClass()
+
+Program = Main()
 
 GPIO.setmode(GPIO.BCM)
 fan = 16
@@ -27,6 +30,9 @@ LCD.lcd_init()
 
 MCP = SPI()
 
+servo = Servo(18, 50)
+servo.init()
+
 onewire1 = OneWireSensor('/sys/bus/w1/devices/28-000008c5ac92/w1_slave')
 onewire2 = OneWireSensor('/sys/bus/w1/devices/28-000008e097d8/w1_slave')
 
@@ -40,7 +46,14 @@ def shutdown_server():
     func()
 
 
-def BackgroundProgram():
+def MainProgram():
+    t = threading.currentThread()
+    while getattr(t, "do_run", True):
+        Program.MainProgram()
+    print("Stopping Background task!.")
+
+
+def DataLogging():
     t = threading.currentThread()
     while getattr(t, "do_run", True):
         vocht1 = round((100 - (MCP.readChannel(0) / 1023) * 100), 2)
@@ -50,12 +63,15 @@ def BackgroundProgram():
         db.TempToDatabase(temp1, temp2)
         db.HumidityToDatabase(vocht1, vocht2)
         time.sleep(5)
-        print("Background task!")
+        print("Data Logged!")
     print("Stopping Background task!.")
 
 
-t = threading.Thread(target=BackgroundProgram)
+t = threading.Thread(target=MainProgram)
 t.start()
+
+t2 = threading.Thread(target=DataLogging)
+t2.start()
 
 
 @app.route('/')
@@ -114,21 +130,15 @@ def handle_data():
 
     if tekst == "41":
         LCD.lcd_clear()
-        servo = Servo(18, 50)
-        servo.init()
         LCD.lcd_string("Last update:", 0)
         LCD.lcd_string("Dak open", 1)
         servo.servoDakOpen(0.03)
-        servo.stopServo()
 
     if tekst == "40":
         LCD.lcd_clear()
-        servo = Servo(18, 50)
-        servo.init()
         LCD.lcd_string("Last update:", 0)
         LCD.lcd_string("Dak toe", 1)
         servo.servoDakToe(0.03)
-        servo.stopServo()
 
     return redirect("/")
 
@@ -223,6 +233,9 @@ def shutdown():
     GPIO.cleanup()
     t.do_run = False
     t.join()
+    t2.do_run = False
+    t2.join()
+    servo.stopServo()
     shutdown_server()
     return render_template("shutdown.html")
 
