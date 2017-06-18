@@ -1,14 +1,12 @@
-import threading
-import time
-
-import RPi.GPIO as GPIO
 from flask import Flask, render_template, request, redirect
 from Klassen.I2CLCDklasse import i2cLCD
 from Klassen.OneWireSensorKlasse import OneWireSensor
 from Klassen.ServoEindwerkKlasse import Servo
 from Klassen.class_db import DbClass
-
 from Klassen.MCPklasse import SPI
+import RPi.GPIO as GPIO
+import threading
+import time
 
 State = 0
 StateWeergave = "Automatic"
@@ -62,20 +60,24 @@ def MainProgram():
                 Temp = int(setting[1])
                 Hum = int(setting[2])
 
-            if tempBinnen >= Temp:
+            if tempBinnen > Temp:
                 GPIO.output(fan, GPIO.HIGH)
                 servo.servoDakOpen(0.03)
+                GPIO.output(Rled, GPIO.HIGH)
             else:
                 GPIO.output(fan, GPIO.LOW)
                 servo.servoDakToe(0.03)
+                GPIO.output(Rled, GPIO.LOW)
 
             if vochtZone1 < Hum or vochtZone2 < Hum:
                 GPIO.output(pump, GPIO.HIGH)
+                GPIO.output(Bled, GPIO.HIGH)
             else:
                 GPIO.output(pump, GPIO.LOW)
-                # print(datetime.datetime.now()
+                GPIO.output(Bled, GPIO.LOW)
         except:
             print("Main program error")
+
     GPIO.output(pump, GPIO.LOW)
     GPIO.output(fan, GPIO.LOW)
     servo.servoDakToe(0.03)
@@ -99,7 +101,6 @@ def DataLogging():
 
 t = threading.Thread(target=MainProgram)
 t.start()
-
 t2 = threading.Thread(target=DataLogging)
 t2.start()
 
