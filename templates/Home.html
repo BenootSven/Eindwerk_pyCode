@@ -11,27 +11,21 @@
 
     <br>
     <fieldset>
+        <legend><h2>Manual control:</h2></legend>
         <form action="/setGPIO" method="post">
-            <legend><h3>Manuele controle:</h3></legend>
-
-
-            <div>Manual ore Automatic (current set: {{ state }} ):
-                <button type="submit" value="1" name="value_set">Manual</button>
-                <button type="submit" value="0" name="value_set">Auto</button>
-            </div>
 
             <table class="talbeDetails">
                 <tr>
                     <td class="tdDetailsRow">
                         <div style="font-size: 30px; margin-bottom: 10px; ">
-                            Pomp:
+                            Pump:
                         </div>
                         <button type="submit" value="11" name="value_set" class="knop">AAN</button>
                         <button type="submit" value="10" name="value_set" class="knop" style="margin-top: 5px">UIT</button>
                     </td>
                     <td class="tdDetailsRow">
                         <div style="font-size: 30px; margin-bottom: 10px; ">
-                            Ventilator:
+                            Fan:
                         </div>
                         <button type="submit" value="21" name="value_set" class="knop">AAN</button>
                         <button type="submit" value="20" name="value_set" class="knop" style="margin-top: 5px">UIT</button>
@@ -45,22 +39,27 @@
                     </td>
                     <td class="tdDetailsRow">
                         <div style="font-size: 30px; margin-bottom: 10px; ">
-                            Dak:
+                            Roof:
                         </div>
                         <button type="submit" value="41" name="value_set" class="knop">OPEN</button>
                         <button type="submit" value="40" name="value_set" class="knop" style="margin-top: 5px">TOE</button>
                     </td>
             </table>
+            <div style="margin-left: 20px">Manual or Automatic (current set: <b>{{ state }}</b> ):
+                <button type="submit" value="1" name="value_set" class="knop" style="width: 110px">Manual</button>
+                <button type="submit" value="0" name="value_set" class="knop" style="width: 110px">Automatic</button>
+                (Wen set to automatic buttons above are disabled)
+            </div>
         </form>
     </fieldset>
     <br>
 
     <fieldset>
-        <legend><h3>Status:</h3></legend>
+        <legend><h2>Status:</h2></legend>
         <table style="width: 100%; margin: auto">
             <tr>
-                <th>Temperatuur binnen</th>
-                <th>Temperatuur buiten</th>
+                <th>Temperature inside</th>
+                <th>Temperature outside</th>
                 <th>Humidity zone 1</th>
                 <th>Humidity zone 2</th>
             </tr>
@@ -79,15 +78,15 @@
 
     <br>
     <fieldset>
-        <legend><h3>Data sensoren:</h3></legend>
+        <legend><h2>Data sensors:</h2></legend>
         <table style="width: 100%">
             <tr>
                 <td>
                     <table class="log">
                         <tr class="log">
                             <th class="log">ID</th>
-                            <th class="log">Temp Binnen</th>
-                            <th class="log">Datum/Tijd</th>
+                            <th class="log">Temperature inside</th>
+                            <th class="log">Date/Time</th>
                         </tr>
                         {% for log in Temp %}
                             <tr class="log">
@@ -102,8 +101,8 @@
                     <table class="log">
                         <tr class="log">
                             <th class="log">ID</th>
-                            <th class="log">Temp Buiten</th>
-                            <th class="log">Datum/Tijd</th>
+                            <th class="log">Temperature outside</th>
+                            <th class="log">Date/Time</th>
                         </tr>
                         {% for log in Temp %}
                             <tr class="log">
@@ -120,8 +119,8 @@
                     <table class="log">
                         <tr class="log">
                             <th class="log">ID</th>
-                            <th class="log">Vocht zone 1</th>
-                            <th class="log">Datum/Tijd</th>
+                            <th class="log">Humidity zone 1</th>
+                            <th class="log">Date/Time</th>
                         </tr>
                         {% for log in Humidity %}
                             <tr class="log">
@@ -136,8 +135,8 @@
                     <table class="log">
                         <tr class="log">
                             <th class="log">ID</th>
-                            <th class="log">Vocht zone 2</th>
-                            <th class="log">Datum/Tijd</th>
+                            <th class="log">Humidity zone 2</th>
+                            <th class="log">Date/time</th>
                         </tr>
                         {% for log in Humidity %}
                             <tr class="log">

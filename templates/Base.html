@@ -26,8 +26,8 @@
         <ul class="head">
             <li><a {% block Home %}{% endblock %}href="{{ url_for("Home") }}">Home</a></li>
             <li><a {% block  Details %}{% endblock %}href="{{ url_for("Details") }}">Details</a></li>
-            <li><a {% block instellingen %}{% endblock %}href="{{ url_for("instellingen") }}">Instellingen</a></li>
-            <li><a {% block Over %}{% endblock %}href="{{ url_for("Over") }}">Over</a></li>
+            <li><a {% block instellingen %}{% endblock %}href="{{ url_for("instellingen") }}">Settings</a></li>
+            <li><a {% block Over %}{% endblock %}href="{{ url_for("Over") }}">About</a></li>
             <li style="float: right; border-left: 1px solid #bbb;"><a {% block shutdown %}{% endblock %}href="{{ url_for("shutdown") }}">shutdown</a></li>
             <li style="float: right; border-left: 1px solid #bbb;"><a {% block truncate %}{% endblock %}href="{{ url_for("truncate") }}">clearDatabase</a></li>
         </ul>

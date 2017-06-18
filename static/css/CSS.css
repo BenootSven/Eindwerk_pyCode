@@ -10,7 +10,7 @@ body {
 
 div.header {
     width: auto;
-    background-image: url("/static/images/groen.jpeg");
+    background-image: url("/static/images/groen1.png");
 }
 
 ul {
@@ -150,10 +150,6 @@ table.instellingenOutside {
     width: 75%;
     border-collapse: collapse;
     text-align: center;
-}
-
-table.instellingenOutside, td.instellingenOutside, tr.instellingenOutside {
-    /*border: 1px solid black;*/
 }
 
 table.instellingenInside {
