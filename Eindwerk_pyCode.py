@@ -1,20 +1,18 @@
-from flask import Flask, render_template, request, redirect
-from Klassen.I2CLCDklasse import i2cLCD
-from Klassen.MCPklasse import SPI
-from Klassen.ServoEindwerkKlasse import Servo
-from Klassen.OneWireSensorKlasse import OneWireSensor
 import threading
-from Klassen.class_db import DbClass
-import RPi.GPIO as GPIO
-from Klassen.Hoofdprogramma import Main
 import time
+
+import RPi.GPIO as GPIO
+from flask import Flask, render_template, request, redirect
+from static.Klassen.I2CLCDklasse import i2cLCD
+from static.Klassen.MCPklasse import SPI
+from static.Klassen.OneWireSensorKlasse import OneWireSensor
+from static.Klassen.ServoEindwerkKlasse import Servo
+from static.Klassen.class_db import DbClass
 
 State = 0
 StateWeergave = "Automatic"
 
 db = DbClass()
-
-Program = Main()
 
 GPIO.setmode(GPIO.BCM)
 fan = 16
@@ -53,7 +51,30 @@ def MainProgram():
     t = threading.currentThread()
     print("###Hoofdprogramma gestart###")
     while getattr(t, "do_run", True):
-        Program.MainProgram()
+        try:
+            vochtZone1 = round((100 - (MCP.readChannel(0) / 1023) * 100), 2)
+            vochtZone2 = round((100 - (MCP.readChannel(1) / 1023) * 100), 2)
+            tempBinnen = round(onewire1.read_temp(), 2)
+            settings = db.getOneSingleRowData("Settings")
+
+            for setting in settings:
+                Temp = int(setting[1])
+                Hum = int(setting[2])
+
+            if tempBinnen >= Temp:
+                GPIO.output(fan, GPIO.HIGH)
+                servo.servoDakOpen(0.03)
+            else:
+                GPIO.output(fan, GPIO.LOW)
+                servo.servoDakToe(0.03)
+
+            if vochtZone1 < Hum or vochtZone2 < Hum:
+                GPIO.output(pump, GPIO.HIGH)
+            else:
+                GPIO.output(pump, GPIO.LOW)
+                # print(datetime.datetime.now()
+        except:
+            print("Main program error")
     GPIO.output(pump, GPIO.LOW)
     GPIO.output(fan, GPIO.LOW)
     servo.servoDakToe(0.03)
