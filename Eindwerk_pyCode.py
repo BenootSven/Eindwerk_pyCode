@@ -3,11 +3,12 @@ import time
 
 import RPi.GPIO as GPIO
 from flask import Flask, render_template, request, redirect
-from static.Klassen.I2CLCDklasse import i2cLCD
-from static.Klassen.MCPklasse import SPI
-from static.Klassen.OneWireSensorKlasse import OneWireSensor
-from static.Klassen.ServoEindwerkKlasse import Servo
-from static.Klassen.class_db import DbClass
+from Klassen.I2CLCDklasse import i2cLCD
+from Klassen.OneWireSensorKlasse import OneWireSensor
+from Klassen.ServoEindwerkKlasse import Servo
+from Klassen.class_db import DbClass
+
+from Klassen.MCPklasse import SPI
 
 State = 0
 StateWeergave = "Automatic"
