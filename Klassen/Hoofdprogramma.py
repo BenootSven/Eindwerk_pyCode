@@ -2,7 +2,7 @@ from Klassen.I2CLCDklasse import i2cLCD
 from Klassen.MCPklasse import SPI
 from Klassen.ServoEindwerkKlasse import Servo
 from Klassen.OneWireSensorKlasse import OneWireSensor
-import time
+import time, datetime
 from Klassen.class_db import DbClass
 import RPi.GPIO as GPIO
 
@@ -72,6 +72,8 @@ class Main():
                 GPIO.output(pump, GPIO.LOW)
                 LCD.lcd_string("Last update:", 0)
                 LCD.lcd_string("Hum normaal", 1)
+
+            # print(datetime.datetime.now())
 
         except:
             print("Main program error")
