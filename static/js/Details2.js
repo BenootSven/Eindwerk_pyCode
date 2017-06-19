@@ -2,9 +2,9 @@ function loadChart(data){
     var config = {
     type: 'line',
     data: {
-        labels: ["9min geleden", "8min geleden", "7min geleden", "6min geleden", "5min geleden", "4min geleden", "3min geleden", "2min geleden" ,"1min geleden","0min geleden"],
+        labels: ["9min ago", "8min ago", "7min ago", "6min ago", "5min ago", "4min ago", "3min ago", "2min ago" ,"1min ago","0min ago"],
         datasets: [{
-            label: "temperatuur",
+            label: "temperature",
             backgroundColor: window.chartColors.red,
             borderColor: window.chartColors.red,
             data: data,
@@ -16,7 +16,7 @@ function loadChart(data){
         responsive: true,
         title: {
             display: true,
-            text: 'temperatuur binnen'
+            text: 'temperature outside'
         },
         tooltips: {
             mode: 'index',
@@ -31,14 +31,14 @@ function loadChart(data){
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Tijd (minuten)'
+                    labelString: 'Time (minutes)'
                 }
             }],
             yAxes: [{
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Graden (°C)'
+                    labelString: 'Degrees (°C)'
                 }
             }]
         }
