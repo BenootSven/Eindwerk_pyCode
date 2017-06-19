@@ -1,6 +1,6 @@
 {% extends "Base.html" %}
 {% block title %}
-    Over
+    About
 {% endblock %}
 
 {% block Over %}
@@ -11,35 +11,58 @@
     <table class="over">
 
         <tr class="over">
-            <td class="over"><h1 style="text-decoration: underline">Wat is SerreMatic?</h1></td>
+            <td class="over"><h1 style="text-decoration: underline">The HOME page</h1></td>
         </tr>
         <tr class="over" style="background-color: white">
             <td class="over" style="border-radius: 10px">
-                SerreMatic is een automatische serre die je kan besturen via deze webside. De serre bevat vele sensoren die de serre besturen en
-                in de gaten houden. De bedoeling is dat je planten in de serre plaatst en de serre de rest doet voor jou. <br>
+                When you enter the home page you can see the button group Manuel control. Beneath the group you can find two buttons manual and automatic these buttons control how the greenhouse works. 4
                 <br>
-                De sensoren controleerd onderanderede temperatuur en de vochtigheid van de planten. Als de temperatuur te hoog wordt wordt een ventilator opgestart en wordt het dak
-                opengeplaatst. Als de planten te droog zijn wordt een automatisch sproeiingsysteem gestart die de planten water geven.
+                <br>
+                When the state is set to <b> automatic </b> the buttons above don’t work because the greenhouse is doing watering, lighting and cooling automatically and therefore you can’t change the state of these things.
+                <br>
+                <br>
+                When the state is set to <b>manual </b> you can control the greenhouse manual with these buttons above. You can turn on the fan or close the roof as you will.
+                <br>
+                <br>
+                Beneath the manual buttons you can find the value of every sensor its currently reading.
+                And finely you can find 4 table with data it collected every x seconds. (For testing purpose it will take a reading every 5 seconds. In real, you can set it on 1 hour per reading.
             </td>
         </tr>
 
         <tr class="over">
-            <td class="over"><h1 style="text-decoration: underline">Hoe te gebruiken?</h1></td>
+            <td class="over"><h1 style="text-decoration: underline">The DETAILS page</h1></td>
         </tr>
         <tr class="over" style="background-color: white">
             <td class="over" style="border-radius: 10px">
-                <u>Tablad HOME:</u> Op het tablad home kan je de status van de serre bekijken. Ook kan je manueel de serre besturen. Je kan ook de waarden van de sensoren zien in een tabel. <br>
-                <br>
-                <u>Tablad Details:</u> Op deze pagina kan je per sensor een grafiek zien van de gegevens dat de sensor heet opgeslaan.
+                On top, you can find one button per sensor. When you choose one of these buttons you can see the details in a graph of the sensor. The sensor you currently watching to is the sensor that is highlighted on top.
             </td>
         </tr>
 
         <tr class="over">
-            <td class="over"><h1 style="text-decoration: underline">Hoe gebruik ik de APP?</h1></td>
+            <td class="over"><h1 style="text-decoration: underline">The SETTINGS page</h1></td>
         </tr>
         <tr class="over" style="background-color: white">
             <td class="over" style="border-radius: 10px">
-                Work in progress
+                When the greenhouse is set to automatic you can change these parameters. <br>
+                <br>
+                The first one controls the temperature. When the temperature is above the temperature you set it at the greenhouse will automatic open the roof and use the fan to get the temperature to what you set.
+                Also, the led change to red because it’s too hot. <br>
+                <br>
+                The second one controls the humidity. When the humidity is beneath the number you set it at the greenhouse will automatic give the plants water.
+                It will stop when the humidity is bigger than the set humidity. Also, the led will change to blue because the greenhouse is giving the plants water.
+
+            </td>
+        </tr>
+
+        <tr class="over">
+            <td class="over"><h1 style="text-decoration: underline">The page CLEARDATABASE and SHUTDOWN</h1></td>
+        </tr>
+        <tr class="over" style="background-color: white">
+            <td class="over" style="border-radius: 10px">
+                When you press cleardatabase all the saved data will be deleted out of the database.
+                <br>
+                <br>
+                When you press shutdown, the server will close and the greenhouse will stop working.
             </td>
         </tr>
 
